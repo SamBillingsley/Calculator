@@ -1,0 +1,31 @@
+.operatorButtons {
+  display: flex;
+  flex-direction: column;
+}
+
+.operatorButton {
+  display: flex;
+  flex-direction: column;
+}
+
+.numberButtons {
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 120px;
+}
+
+button {
+  padding: 5px;
+  height: 40px;
+  margin: 5px;
+}
+
+#zero {
+  width: 55px;
+}
+
+body {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+}
