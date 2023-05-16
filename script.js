@@ -71,6 +71,54 @@ division.addEventListener("click", function () {
   // }
   equation.push("/");
 });
+
+// add function that takes array and calculates it using PEMDAS
+const pemdas = function (equation) {
+  total = 0;
+  do {
+    do {
+      if (equation.includes("*")) {
+        const num1 = equation[equation.indexOf("*") - 1].join("");
+        const num2 = equation[equation.indexOf("*") + 1].join("");
+        const product = num1 * num2;
+        equation.splice(equation.indexOf("*") - 1, 3, [product]);
+        console.log(equation);
+      }
+    } while (equation.includes("*"));
+
+    do {
+      if (equation.includes("/")) {
+        const num1 = equation[equation.indexOf("/") - 1].join("");
+        const num2 = equation[equation.indexOf("/") + 1].join("");
+        const product = num1 / num2;
+        equation.splice(equation.indexOf("/") - 1, 3, [product]);
+        console.log(equation);
+      }
+    } while (equation.includes("/"));
+
+    do {
+      if (equation.includes("+")) {
+        const num1 = equation[equation.indexOf("+") - 1].join("");
+        const num2 = equation[equation.indexOf("+") + 1].join("");
+        const product = parseInt(num1) + parseInt(num2);
+        equation.splice(equation.indexOf("+") - 1, 3, [product]);
+        console.log(equation);
+      }
+    } while (equation.includes("+"));
+
+    do {
+      if (equation.includes("-")) {
+        const num1 = equation[equation.indexOf("-") - 1].join("");
+        const num2 = equation[equation.indexOf("-") + 1].join("");
+        const product = num1 - num2;
+        equation.splice(equation.indexOf("-") - 1, 3, [product]);
+        console.log(equation);
+      }
+    } while (equation.includes("-"));
+  } while (equation.length != 1);
+};
+
 equals.addEventListener("click", function () {
   arrSwap(equation, currentNum);
+  pemdas(equation);
 });
