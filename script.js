@@ -13,10 +13,12 @@ const addition = document.querySelector("#addition");
 const subtraction = document.querySelector("#subtraction");
 const multiplication = document.querySelector("#multiplication");
 const division = document.querySelector("#division");
+const decimal = document.querySelector("#decimal");
 
 // array in which numbers will be added
 const equation = [];
 const currentNum = [];
+const operators = ["+", "-", "*", "/"];
 
 // add numbers to equation
 one.addEventListener("click", () => currentNum.push("1"));
@@ -29,29 +31,46 @@ seven.addEventListener("click", () => currentNum.push("7"));
 eight.addEventListener("click", () => currentNum.push("8"));
 nine.addEventListener("click", () => currentNum.push("9"));
 zero.addEventListener("click", () => currentNum.push("0"));
+decimal.addEventListener("click", () => currentNum.push("."));
 
 // create function to empty currentNum array and add equation to equation arr
 const arrSwap = function (arr1, arr2) {
-  arr1.push(...arr2);
-  arr2.length = 0;
+  const tempArr = [];
+  do {
+    tempArr.push(arr2.pop());
+  } while (arr2.length != 0);
+  arr1.push(tempArr.reverse());
 };
 
 // add operator to equation
 addition.addEventListener("click", function () {
   arrSwap(equation, currentNum);
+  // if (operators.includes(equation.slice(-1))) {
+  //   equation.splice(-1);
+  // }
   equation.push("+");
 });
 subtraction.addEventListener("click", function () {
   arrSwap(equation, currentNum);
-  equation.push("+");
+  // if (operators.includes(equation.slice(-1))) {
+  //   equation.splice(-1);
+  // }
+  equation.push("-");
 });
 multiplication.addEventListener("click", function () {
   arrSwap(equation, currentNum);
+  // if (operators.includes(equation.slice(-1))) {
+  //   equation.splice(-1);
+  // }
   equation.push("*");
 });
 division.addEventListener("click", function () {
   arrSwap(equation, currentNum);
+  // if (operators.includes(equation.slice(-1))) {
+  //   equation.splice(-1);
+  // }
   equation.push("/");
 });
-
-// split equation according to PEMDAS
+equals.addEventListener("click", function () {
+  arrSwap(equation, currentNum);
+});
