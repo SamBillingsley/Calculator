@@ -37,9 +37,11 @@ decimal.addEventListener("click", () => currentNum.push("."));
 const arrSwap = function (arr1, arr2) {
   const tempArr = [];
   do {
-    tempArr.push(arr2.pop());
+    if (arr2.length > 0) {
+      tempArr.push(arr2.pop());
+      arr1.push(tempArr.reverse());
+    }
   } while (arr2.length != 0);
-  arr1.push(tempArr.reverse());
 };
 
 // add operator to equation
