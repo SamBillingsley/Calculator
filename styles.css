@@ -1,29 +1,73 @@
-.operatorButtons {
+.case {
+  background-color: burlywood;
+  width: 500px;
+  margin: 0 auto;
+  padding-bottom: 20px;
+  border-radius: 10px;
+}
+
+.result {
+  background-color: grey;
+  width: 380px;
+  font-size: 45px;
+  padding-right: 10px;
+  border-radius: 10px;
+}
+
+.screen {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  height: 50px;
+  padding: 10px;
+  text-align: end;
+}
+
+.operatorButtons {
+  width: 40px;
+  padding-right: 50px;
 }
 
 .operatorButton {
-  display: flex;
-  flex-direction: column;
+  width: 80px;
+  height: 100px;
+  background-color: orange;
 }
 
 .numberButtons {
   justify-content: center;
-  flex-wrap: wrap;
-  width: 120px;
+  width: 300px;
+  padding-right: 0px;
+}
+
+.numButton {
+  height: 100px;
+  width: 80px;
+  background-color: grey;
+}
+
+.specialCharButton {
+  height: 100px;
+  width: 80px;
+  background-color: lightgray;
 }
 
 button {
-  padding: 5px;
   margin: 5px;
+  border-radius: 20px;
+  font-size: larger;
 }
 
 #zero {
-  width: 55px;
+  width: 174px;
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.buttons {
   display: flex;
   flex-direction: row-reverse;
   justify-content: center;
