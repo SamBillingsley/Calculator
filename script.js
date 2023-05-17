@@ -15,10 +15,34 @@ const multiplication = document.querySelector("#multiplication");
 const division = document.querySelector("#division");
 const decimal = document.querySelector("#decimal");
 
+const clear = document.querySelector("#clear");
+
+const display = document.querySelector("result");
+
 // array in which numbers will be added
 const equation = [];
 const currentNum = [];
 const operators = ["+", "-", "*", "/"];
+
+// Create clear button
+const clearAll = function (arr1, currentNum) {
+  arr1.length = 0;
+};
+
+clear.addEventListener("click", () => {
+  if (clear.innerHTML == "CE") {
+    clearAll(equation);
+  } else {
+    clearAll(currentNum);
+  }
+  clear.innerHTML = "CE";
+});
+
+document.querySelectorAll(".numButton").forEach(function (numBtn) {
+  numBtn.addEventListener("click", () => {
+    clear.innerHTML = "C";
+  });
+});
 
 // add numbers to equation
 one.addEventListener("click", () => currentNum.push("1"));
@@ -47,43 +71,35 @@ const arrSwap = function (arr1, arr2) {
 // add operator to equation
 addition.addEventListener("click", function () {
   arrSwap(equation, currentNum);
-  // if (operators.includes(equation.slice(-1))) {
-  //   equation.splice(-1);
-  // }
   equation.push("+");
 });
+
 subtraction.addEventListener("click", function () {
   arrSwap(equation, currentNum);
-  // if (operators.includes(equation.slice(-1))) {
-  //   equation.splice(-1);
-  // }
   equation.push("-");
 });
+
 multiplication.addEventListener("click", function () {
   arrSwap(equation, currentNum);
-  // if (operators.includes(equation.slice(-1))) {
-  //   equation.splice(-1);
-  // }
   equation.push("*");
 });
+
 division.addEventListener("click", function () {
   arrSwap(equation, currentNum);
-  // if (operators.includes(equation.slice(-1))) {
-  //   equation.splice(-1);
-  // }
   equation.push("/");
 });
 
 // add function that takes array and calculates it using PEMDAS
 const pemdas = function (equation) {
-  total = 0;
+  let total = 0;
   do {
     do {
       if (equation.includes("*")) {
         const num1 = equation[equation.indexOf("*") - 1].join("");
         const num2 = equation[equation.indexOf("*") + 1].join("");
-        const product = num1 * num2;
-        equation.splice(equation.indexOf("*") - 1, 3, [product]);
+        total = num1 * num2;
+        clearAll(equation);
+        equation.push([total]);
         console.log(equation);
       }
     } while (equation.includes("*"));
@@ -92,8 +108,9 @@ const pemdas = function (equation) {
       if (equation.includes("/")) {
         const num1 = equation[equation.indexOf("/") - 1].join("");
         const num2 = equation[equation.indexOf("/") + 1].join("");
-        const product = num1 / num2;
-        equation.splice(equation.indexOf("/") - 1, 3, [product]);
+        total = num1 / num2;
+        clearAll(equation);
+        equation.push([total]);
         console.log(equation);
       }
     } while (equation.includes("/"));
@@ -102,8 +119,9 @@ const pemdas = function (equation) {
       if (equation.includes("+")) {
         const num1 = equation[equation.indexOf("+") - 1].join("");
         const num2 = equation[equation.indexOf("+") + 1].join("");
-        const product = parseInt(num1) + parseInt(num2);
-        equation.splice(equation.indexOf("+") - 1, 3, [product]);
+        total = parseInt(num1) + parseInt(num2);
+        clearAll(equation);
+        equation.push([total]);
         console.log(equation);
       }
     } while (equation.includes("+"));
@@ -112,15 +130,19 @@ const pemdas = function (equation) {
       if (equation.includes("-")) {
         const num1 = equation[equation.indexOf("-") - 1].join("");
         const num2 = equation[equation.indexOf("-") + 1].join("");
-        const product = num1 - num2;
-        equation.splice(equation.indexOf("-") - 1, 3, [product]);
+        total = num1 - num2;
+        clearAll(equation);
+        equation.push([total]);
         console.log(equation);
       }
     } while (equation.includes("-"));
-  } while (equation.length != 1);
+  } while (total == 0);
 };
 
+// Have equals button equate equation
 equals.addEventListener("click", function () {
-  arrSwap(equation, currentNum);
-  pemdas(equation);
+  if (currentNum.length != 0) {
+    arrSwap(equation, currentNum);
+    pemdas(equation);
+  }
 });
