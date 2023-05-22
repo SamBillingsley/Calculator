@@ -71,17 +71,18 @@ const arrSwap = function (arr1, arr2) {
   }
 };
 
-// add operator to equation
-const arrCheck = function (arr) {
+// add function to prevent multiple operators
+const multOperatorCheck = function (arr) {
   temp = equation.pop();
   if (Array.isArray(temp)) {
     arr.push(temp);
   }
 };
 
+// add operator to equation
 addition.addEventListener("click", function () {
   arrSwap(equation, currentNum);
-  arrCheck(equation);
+  multOperatorCheck(equation);
   if (equation.length >= 3) {
     pemdas(equation);
     display.innerHTML = equation.join("");
@@ -91,7 +92,7 @@ addition.addEventListener("click", function () {
 
 subtraction.addEventListener("click", function () {
   arrSwap(equation, currentNum);
-  arrCheck(equation);
+  multOperatorCheck(equation);
   if (equation.length >= 3) {
     pemdas(equation);
     display.innerHTML = equation.join("");
@@ -101,7 +102,7 @@ subtraction.addEventListener("click", function () {
 
 multiplication.addEventListener("click", function () {
   arrSwap(equation, currentNum);
-  arrCheck(equation);
+  multOperatorCheck(equation);
   if (equation.length >= 3) {
     pemdas(equation);
     display.innerHTML = equation.join("");
@@ -111,12 +112,11 @@ multiplication.addEventListener("click", function () {
 
 division.addEventListener("click", function () {
   arrSwap(equation, currentNum);
-  arrCheck(equation);
+  multOperatorCheck(equation);
   if (equation.length >= 3) {
     pemdas(equation);
     display.innerHTML = equation.join("");
   }
-
   equation.push("/");
 });
 
@@ -176,7 +176,7 @@ const findTotal = function () {
   if (currentNum.length != 0) {
     arrSwap(equation, currentNum);
     pemdas(equation);
-    display.innerHTML = equation;
+    display.innerHTML = Math.round(equation * 100) / 100;
   }
 };
 
