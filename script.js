@@ -17,7 +17,9 @@ const decimal = document.querySelector("#decimal");
 
 const clear = document.querySelector("#clear");
 
-const display = document.querySelector("result");
+const display = document.querySelector(".result");
+
+const numButton = document.querySelectorAll(".numButton");
 
 // array in which numbers will be added
 const equation = [];
@@ -32,16 +34,12 @@ const clearAll = function (arr1, currentNum) {
 clear.addEventListener("click", () => {
   if (clear.innerHTML == "CE") {
     clearAll(equation);
+    display.innerHTML = 0;
   } else {
     clearAll(currentNum);
+    display.innerHTML = 0;
   }
   clear.innerHTML = "CE";
-});
-
-document.querySelectorAll(".numButton").forEach(function (numBtn) {
-  numBtn.addEventListener("click", () => {
-    clear.innerHTML = "C";
-  });
 });
 
 // add numbers to equation
@@ -56,6 +54,14 @@ eight.addEventListener("click", () => currentNum.push("8"));
 nine.addEventListener("click", () => currentNum.push("9"));
 zero.addEventListener("click", () => currentNum.push("0"));
 decimal.addEventListener("click", () => currentNum.push("."));
+
+// Create event listeners that change clear button and show display
+numButton.forEach(function (numBtn) {
+  numBtn.addEventListener("click", function () {
+    display.innerHTML = currentNum.join("");
+    clear.innerHTML = "C";
+  });
+});
 
 // create function to empty currentNum array and add equation to equation arr
 const arrSwap = function (arr1, arr2) {
@@ -91,7 +97,7 @@ division.addEventListener("click", function () {
 
 // add function that takes array and calculates it using PEMDAS
 const pemdas = function (equation) {
-  let total = 0;
+  let total = [];
   do {
     do {
       if (equation.includes("*")) {
@@ -136,7 +142,8 @@ const pemdas = function (equation) {
         console.log(equation);
       }
     } while (equation.includes("-"));
-  } while (total == 0);
+  } while (total.length == 0);
+  total = [];
 };
 
 // Have equals button equate equation
@@ -144,5 +151,6 @@ equals.addEventListener("click", function () {
   if (currentNum.length != 0) {
     arrSwap(equation, currentNum);
     pemdas(equation);
+    display.innerHTML = equation;
   }
 });
