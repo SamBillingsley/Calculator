@@ -24,7 +24,6 @@ const numButton = document.querySelectorAll(".numButton");
 // array in which numbers will be added
 const equation = [];
 const currentNum = [];
-const operators = ["+", "-", "*", "/"];
 
 // Create clear button
 const clearAll = function (arr1, currentNum) {
@@ -66,32 +65,46 @@ numButton.forEach(function (numBtn) {
 // create function to empty currentNum array and add equation to equation arr
 const arrSwap = function (arr1, arr2) {
   const tempArr = [];
-  do {
-    if (arr2.length > 0) {
-      tempArr.push(arr2.pop());
-      arr1.push(tempArr.reverse());
-    }
-  } while (arr2.length != 0);
+  while (arr2.length > 0) {
+    tempArr.push(arr2.pop());
+    arr1.push(tempArr.reverse());
+  }
 };
 
 // add operator to equation
+const arrCheck = function (arr) {
+  Array.isArray(arr.slice(-1));
+};
+
 addition.addEventListener("click", function () {
   arrSwap(equation, currentNum);
+  if (arrCheck(equation)) {
+    equation.pop();
+  }
   equation.push("+");
 });
 
 subtraction.addEventListener("click", function () {
   arrSwap(equation, currentNum);
+  if (arrCheck(equation)) {
+    equation.pop();
+  }
   equation.push("-");
 });
 
 multiplication.addEventListener("click", function () {
   arrSwap(equation, currentNum);
+  if (arrCheck(equation)) {
+    equation.pop();
+  }
   equation.push("*");
 });
 
 division.addEventListener("click", function () {
   arrSwap(equation, currentNum);
+  if (arrCheck(equation)) {
+    equation.pop();
+  }
   equation.push("/");
 });
 
