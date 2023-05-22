@@ -85,7 +85,7 @@ addition.addEventListener("click", function () {
   multOperatorCheck(equation);
   if (equation.length >= 3) {
     pemdas(equation);
-    display.innerHTML = equation.join("");
+    display.innerHTML = Math.round(equation.join("") * 100) / 100;
   }
   equation.push("+");
 });
@@ -95,7 +95,7 @@ subtraction.addEventListener("click", function () {
   multOperatorCheck(equation);
   if (equation.length >= 3) {
     pemdas(equation);
-    display.innerHTML = equation.join("");
+    display.innerHTML = Math.round(equation.join("") * 100) / 100;
   }
   equation.push("-");
 });
@@ -105,7 +105,7 @@ multiplication.addEventListener("click", function () {
   multOperatorCheck(equation);
   if (equation.length >= 3) {
     pemdas(equation);
-    display.innerHTML = equation.join("");
+    display.innerHTML = Math.round(equation.join("") * 100) / 100;
   }
   equation.push("*");
 });
@@ -115,7 +115,7 @@ division.addEventListener("click", function () {
   multOperatorCheck(equation);
   if (equation.length >= 3) {
     pemdas(equation);
-    display.innerHTML = equation.join("");
+    display.innerHTML = Math.round(equation.join("") * 100) / 100;
   }
   equation.push("/");
 });
