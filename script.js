@@ -73,38 +73,50 @@ const arrSwap = function (arr1, arr2) {
 
 // add operator to equation
 const arrCheck = function (arr) {
-  Array.isArray(arr.slice(-1));
+  temp = equation.pop();
+  if (Array.isArray(temp)) {
+    arr.push(temp);
+  }
 };
 
 addition.addEventListener("click", function () {
   arrSwap(equation, currentNum);
-  if (arrCheck(equation)) {
-    equation.pop();
+  arrCheck(equation);
+  if (equation.length >= 3) {
+    pemdas(equation);
+    display.innerHTML = equation.join("");
   }
   equation.push("+");
 });
 
 subtraction.addEventListener("click", function () {
   arrSwap(equation, currentNum);
-  if (arrCheck(equation)) {
-    equation.pop();
+  arrCheck(equation);
+  if (equation.length >= 3) {
+    pemdas(equation);
+    display.innerHTML = equation.join("");
   }
   equation.push("-");
 });
 
 multiplication.addEventListener("click", function () {
   arrSwap(equation, currentNum);
-  if (arrCheck(equation)) {
-    equation.pop();
+  arrCheck(equation);
+  if (equation.length >= 3) {
+    pemdas(equation);
+    display.innerHTML = equation.join("");
   }
   equation.push("*");
 });
 
 division.addEventListener("click", function () {
   arrSwap(equation, currentNum);
-  if (arrCheck(equation)) {
-    equation.pop();
+  arrCheck(equation);
+  if (equation.length >= 3) {
+    pemdas(equation);
+    display.innerHTML = equation.join("");
   }
+
   equation.push("/");
 });
 
@@ -160,10 +172,14 @@ const pemdas = function (equation) {
 };
 
 // Have equals button equate equation
-equals.addEventListener("click", function () {
+const findTotal = function () {
   if (currentNum.length != 0) {
     arrSwap(equation, currentNum);
     pemdas(equation);
     display.innerHTML = equation;
   }
+};
+
+equals.addEventListener("click", () => {
+  findTotal();
 });
