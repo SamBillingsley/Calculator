@@ -65,6 +65,7 @@ numButton.forEach(function (numBtn) {
   numBtn.addEventListener("click", function () {
     display.innerHTML = currentNum.join("");
     clear.innerHTML = "C";
+    console.log(equation.length);
   });
 });
 
@@ -78,6 +79,13 @@ const checkNegative = function (arr) {
     if (arr[0] === "-") {
       arr.shift();
     }
+  }
+};
+
+const negativeToggle = function (num) {
+  if (num[0] === "-") {
+    num * -1;
+    num.slice(0, 1);
   }
 };
 
@@ -98,13 +106,13 @@ const arrSwap = function (arr1, arr2) {
   const tempArr = [];
   while (arr2.length > 0) {
     tempArr.push(arr2.pop());
-    arr1.push(tempArr.reverse());
   }
+  arr1.push(tempArr.reverse());
 };
 
 // add function to prevent multiple operators
 const multOperatorCheck = function (arr) {
-  temp = equation.pop();
+  temp = arr.pop();
   if (Array.isArray(temp)) {
     arr.push(temp);
   }
@@ -163,6 +171,8 @@ const pemdas = function (equation) {
       if (equation.includes("*")) {
         const num1 = equation[equation.indexOf("*") - 1].join("");
         const num2 = equation[equation.indexOf("*") + 1].join("");
+        negativeToggle(num1);
+        negativeToggle(num2);
         total = num1 * num2;
         clearAll(equation);
         equation.push([total]);
@@ -174,6 +184,8 @@ const pemdas = function (equation) {
       if (equation.includes("/")) {
         const num1 = equation[equation.indexOf("/") - 1].join("");
         const num2 = equation[equation.indexOf("/") + 1].join("");
+        negativeToggle(num1);
+        negativeToggle(num2);
         total = num1 / num2;
         clearAll(equation);
         equation.push([total]);
@@ -185,6 +197,8 @@ const pemdas = function (equation) {
       if (equation.includes("+")) {
         const num1 = equation[equation.indexOf("+") - 1].join("");
         const num2 = equation[equation.indexOf("+") + 1].join("");
+        negativeToggle(num1);
+        negativeToggle(num2);
         total = parseInt(num1) + parseInt(num2);
         clearAll(equation);
         equation.push([total]);
@@ -196,6 +210,8 @@ const pemdas = function (equation) {
       if (equation.includes("-")) {
         const num1 = equation[equation.indexOf("-") - 1].join("");
         const num2 = equation[equation.indexOf("-") + 1].join("");
+        negativeToggle(num1);
+        negativeToggle(num2);
         total = num1 - num2;
         clearAll(equation);
         equation.push([total]);
