@@ -16,6 +16,7 @@ const division = document.querySelector("#division");
 const decimal = document.querySelector("#decimal");
 
 const clear = document.querySelector("#clear");
+const negativeBtn = document.querySelector("#negative");
 
 const display = document.querySelector(".result");
 
@@ -26,7 +27,7 @@ const equation = [];
 const currentNum = [];
 
 // Create clear button
-const clearAll = function (arr1, currentNum) {
+const clearAll = function (arr1) {
   arr1.length = 0;
 };
 
@@ -35,8 +36,13 @@ clear.addEventListener("click", () => {
     clearAll(equation);
     display.innerHTML = 0;
   } else {
-    clearAll(currentNum);
-    display.innerHTML = 0;
+    if ((equation.length = 1)) {
+      clearAll(equation);
+      clearAll(currentNum);
+    } else {
+      clearAll(currentNum);
+      display.innerHTML = 0;
+    }
   }
   clear.innerHTML = "CE";
 });
@@ -62,6 +68,31 @@ numButton.forEach(function (numBtn) {
   });
 });
 
+// Create negative button toggle
+negative = false;
+
+const checkNegative = function (arr) {
+  if (negative && !arr.includes("-")) {
+    arr.unshift("-");
+  } else {
+    if (arr[0] === "-") {
+      arr.shift();
+    }
+  }
+};
+
+negativeBtn.addEventListener("click", () => {
+  if (negative) {
+    negative = false;
+    checkNegative(currentNum);
+    display.innerHTML = currentNum.join("");
+  } else {
+    negative = true;
+    checkNegative(currentNum);
+    display.innerHTML = currentNum.join("");
+  }
+});
+
 // create function to empty currentNum array and add equation to equation arr
 const arrSwap = function (arr1, arr2) {
   const tempArr = [];
@@ -82,6 +113,7 @@ const multOperatorCheck = function (arr) {
 // add operator to equation
 addition.addEventListener("click", function () {
   arrSwap(equation, currentNum);
+  negative = false;
   multOperatorCheck(equation);
   if (equation.length >= 3) {
     pemdas(equation);
@@ -92,6 +124,7 @@ addition.addEventListener("click", function () {
 
 subtraction.addEventListener("click", function () {
   arrSwap(equation, currentNum);
+  negative = false;
   multOperatorCheck(equation);
   if (equation.length >= 3) {
     pemdas(equation);
@@ -102,6 +135,7 @@ subtraction.addEventListener("click", function () {
 
 multiplication.addEventListener("click", function () {
   arrSwap(equation, currentNum);
+  negative = false;
   multOperatorCheck(equation);
   if (equation.length >= 3) {
     pemdas(equation);
@@ -112,6 +146,7 @@ multiplication.addEventListener("click", function () {
 
 division.addEventListener("click", function () {
   arrSwap(equation, currentNum);
+  negative = false;
   multOperatorCheck(equation);
   if (equation.length >= 3) {
     pemdas(equation);
