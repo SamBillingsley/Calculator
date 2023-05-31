@@ -1,8 +1,9 @@
 .case {
-  background-color: burlywood;
+  background-color: peachpuff;
   width: 500px;
   margin: 0 auto;
   padding-bottom: 20px;
+  border: 2px black solid;
   border-radius: 10px;
   position: fixed;
   top: 50%;
@@ -35,7 +36,7 @@
 .operatorButton {
   width: 80px;
   height: 100px;
-  background-color: orange;
+  background-color: darkcyan;
 }
 
 .numberButtons {
@@ -59,7 +60,7 @@
 button {
   margin: 5px;
   border-radius: 20px;
-  font-size: larger;
+  font-size: 30px;
   border: none;
 }
 
@@ -68,6 +69,7 @@ button {
 }
 
 body {
+  background-color: gainsboro;
   display: flex;
   flex-direction: column;
   justify-content: center;

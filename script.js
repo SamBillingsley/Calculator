@@ -116,18 +116,43 @@ const percentToggle = function () {
 };
 
 const findPercentage = function (currentNum) {
-  if (percent) {
-    tempArr = (currentNum.flat().join("") / 100).toString().split("");
-    clearAll(currentNum);
-    currentNum.push(tempArr);
-    display.innerHTML = currentNum.flat().join("");
+  if (equation.length < 3) {
+    if (percent) {
+      tempCurrentNum = equation[0].join("") * (currentNum.join("") / 100);
+      clearAll(currentNum);
+      currentNum.push(tempCurrentNum);
+    } else {
+      tempCurrentNum = (currentNum / equation[0].join("")) * 100;
+      clearAll(currentNum);
+      currentNum.push(tempCurrentNum);
+    }
   } else {
-    tempArr = (currentNum.flat().join("") * 100).toString().split("");
-    clearAll(currentNum);
-    currentNum.push(tempArr);
-    display.innerHTML = currentNum;
-    display.innerHTML = currentNum.flat().join("");
+    tempEquation = equation.slice(0, equation.length - 1);
+    if (percent) {
+      if (tempEquation.length > 1) {
+        pemdas(tempEquation);
+        tempCurrentNum = tempEquation * (currentNum / 100);
+        clearAll(currentNum);
+        currentNum.push(tempCurrentNum).toString().split("");
+      } else {
+        tempCurrentNum = tempEquation * (currentNum / 100);
+        clearAll(currentNum);
+        currentNum.push(tempCurrentNum).toString().split("");
+      }
+    } else {
+      if (tempEquation.length > 1) {
+        pemdas(tempEquation);
+        tempCurrentNum = (currentNum / tempEquation) * 100;
+        clearAll(currentNum);
+        currentNum.push(tempCurrentNum).toString().split("");
+      } else {
+        tempCurrentNum = (currentNum / tempEquation) * 100;
+        clearAll(currentNum);
+        currentNum.push(tempCurrentNum).toString().split("");
+      }
+    }
   }
+  display.innerHTML = Math.round(100 * currentNum.flat().join("")) / 100;
 };
 
 percentageBtn.addEventListener("click", function () {
