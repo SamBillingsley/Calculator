@@ -126,10 +126,11 @@ addition.addEventListener("click", function () {
   arrSwap(equation, currentNum);
   negative = false;
   multOperatorCheck(equation);
-  // if (equation.length >= 3) {
-  //   // pemdas(equation);
-  //   // display.innerHTML = Math.round(equation.join("") * 100) / 100;
-  // }
+  if (equation.length >= 3) {
+    tempArr = equation.slice(0);
+    pemdas(tempArr);
+    display.innerHTML = Math.round(tempArr[0] * 100) / 100;
+  }
   equation.push("+");
 });
 
@@ -137,21 +138,22 @@ subtraction.addEventListener("click", function () {
   arrSwap(equation, currentNum);
   negative = false;
   multOperatorCheck(equation);
-  // if (equation.length >= 3) {
-  //   // pemdas(equation);
-  //   // display.innerHTML = Math.round(equation.join("") * 100) / 100;
-  // }
+  if (equation.length >= 3) {
+    tempArr = equation.slice(0);
+    pemdas(tempArr);
+    display.innerHTML = Math.round(tempArr[0] * 100) / 100;
+  }
   equation.push("-");
 });
 
 multiplication.addEventListener("click", function () {
   arrSwap(equation, currentNum);
   negative = false;
-  multOperatorCheck(equation);
-  // if (equation.length >= 3) {
-  //   // pemdas(equation);
-  //   // display.innerHTML = Math.round(equation.join("") * 100) / 100;
-  // }
+  if (equation.length >= 3) {
+    tempArr = equation.slice(0);
+    pemdas(tempArr);
+    display.innerHTML = Math.round(tempArr[0] * 100) / 100;
+  }
   equation.push("*");
 });
 
@@ -159,10 +161,11 @@ division.addEventListener("click", function () {
   arrSwap(equation, currentNum);
   negative = false;
   multOperatorCheck(equation);
-  // if (equation.length >= 3) {
-  //   // pemdas(equation);
-  //   // display.innerHTML = Math.round(equation.join("") * 100) / 100;
-  // }
+  if (equation.length >= 3) {
+    tempArr = equation.slice(0);
+    pemdas(tempArr);
+    display.innerHTML = Math.round(tempArr[0] * 100) / 100;
+  }
   equation.push("/");
 });
 
