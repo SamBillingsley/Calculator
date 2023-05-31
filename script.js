@@ -13,7 +13,8 @@ const addition = document.querySelector("#addition");
 const subtraction = document.querySelector("#subtraction");
 const multiplication = document.querySelector("#multiplication");
 const division = document.querySelector("#division");
-const decimal = document.querySelector("#decimal");
+const decimalBtn = document.querySelector("#decimal");
+const percentageBtn = document.querySelector("#percentage");
 
 const clear = document.querySelector("#clear");
 const negativeBtn = document.querySelector("#negative");
@@ -59,7 +60,6 @@ seven.addEventListener("click", () => currentNum.push("7"));
 eight.addEventListener("click", () => currentNum.push("8"));
 nine.addEventListener("click", () => currentNum.push("9"));
 zero.addEventListener("click", () => currentNum.push("0"));
-decimal.addEventListener("click", () => currentNum.push("."));
 
 // Create event listeners that change clear button and show display
 numButton.forEach(function (numBtn) {
@@ -102,6 +102,39 @@ negativeBtn.addEventListener("click", () => {
   }
 });
 
+// Create decimal button and percentage button functionality
+decimalBtn.addEventListener("click", () => currentNum.push("."));
+
+percent = false;
+
+const percentToggle = function () {
+  if (percent) {
+    percent = false;
+  } else {
+    percent = true;
+  }
+};
+
+const findPercentage = function (currentNum) {
+  if (percent) {
+    tempArr = (currentNum.flat().join("") / 100).toString().split("");
+    clearAll(currentNum);
+    currentNum.push(tempArr);
+    display.innerHTML = currentNum.flat().join("");
+  } else {
+    tempArr = (currentNum.flat().join("") * 100).toString().split("");
+    clearAll(currentNum);
+    currentNum.push(tempArr);
+    display.innerHTML = currentNum;
+    display.innerHTML = currentNum.flat().join("");
+  }
+};
+
+percentageBtn.addEventListener("click", function () {
+  percentToggle();
+  findPercentage(currentNum);
+});
+
 // create function to empty currentNum array and add equation to equation arr
 const arrSwap = function (arr1, arr2) {
   const tempArr = [];
@@ -125,6 +158,7 @@ const multOperatorCheck = function (arr) {
 addition.addEventListener("click", function () {
   arrSwap(equation, currentNum);
   negative = false;
+  percent = false;
   multOperatorCheck(equation);
   if (equation.length >= 3) {
     tempArr = equation.slice(0);
@@ -149,6 +183,7 @@ subtraction.addEventListener("click", function () {
 multiplication.addEventListener("click", function () {
   arrSwap(equation, currentNum);
   negative = false;
+  percent = false;
   if (equation.length >= 3) {
     tempArr = equation.slice(0);
     pemdas(tempArr);
@@ -160,6 +195,7 @@ multiplication.addEventListener("click", function () {
 division.addEventListener("click", function () {
   arrSwap(equation, currentNum);
   negative = false;
+  percent = false;
   multOperatorCheck(equation);
   if (equation.length >= 3) {
     tempArr = equation.slice(0);
@@ -170,7 +206,7 @@ division.addEventListener("click", function () {
 });
 
 // add function that takes array and calculates it using PEMDAS
-const leftToRightMultAndDiv = function (equation) {
+const orderedMultAndDiv = function (equation) {
   if (equation.indexOf("*") < equation.indexOf("/")) {
     const num1 = equation[equation.indexOf("*") - 1].join("");
     const num2 = equation[equation.indexOf("*") + 1].join("");
@@ -192,13 +228,14 @@ const leftToRightMultAndDiv = function (equation) {
 
 const multiplicationAndDivision = function (equation) {
   if (equation.includes("*") && equation.includes("/")) {
-    leftToRightMultAndDiv(equation);
+    orderedMultAndDiv(equation);
   } else if (equation.includes("*")) {
     const num1 = equation[equation.indexOf("*") - 1].join("");
     const num2 = equation[equation.indexOf("*") + 1].join("");
     negativeToggle(num1);
     negativeToggle(num2);
     total = num1 * num2;
+    console.log(total);
     equation.splice(equation.indexOf("*") - 1, 3, [total]);
     console.log(equation);
   } else if (equation.includes("/")) {
@@ -209,17 +246,18 @@ const multiplicationAndDivision = function (equation) {
     total = num1 / num2;
     equation.splice(equation.indexOf("/") - 1, 3, [total]);
     console.log(equation);
+    console.log(total);
   }
   total = [];
 };
 
-const leftToRightAddAndSub = function (equation) {
+const orderedAddAndSub = function (equation) {
   if (equation.indexOf("+") < equation.indexOf("-")) {
     const num1 = equation[equation.indexOf("+") - 1].join("");
     const num2 = equation[equation.indexOf("+") + 1].join("");
     negativeToggle(num1);
     negativeToggle(num2);
-    total = num1 + num2;
+    total = parseFloat(num1) + parseFloat(num2);
     equation.splice(equation.indexOf("+") - 1, 3, [total]);
     console.log(equation);
   } else {
@@ -235,13 +273,13 @@ const leftToRightAddAndSub = function (equation) {
 
 const additionAndSubtraction = function (equation) {
   if (equation.includes("+") && equation.includes("-")) {
-    leftToRightAddAndSub(equation);
+    orderedAddAndSub(equation);
   } else if (equation.includes("+")) {
     const num1 = equation[equation.indexOf("+") - 1].join("");
     const num2 = equation[equation.indexOf("+") + 1].join("");
     negativeToggle(num1);
     negativeToggle(num2);
-    total = parseInt(num1) + parseInt(num2);
+    total = parseFloat(num1) + parseFloat(num2);
     equation.splice(equation.indexOf("+") - 1, 3, [total]);
     console.log(equation);
   } else if (equation.includes("-")) {
@@ -261,26 +299,22 @@ const pemdas = function (equation) {
     do {
       multiplicationAndDivision(equation);
     } while (equation.includes("*") || equation.includes("/"));
+
     do {
       additionAndSubtraction(equation);
     } while (equation.includes("+") || equation.includes("-"));
   } while (equation.length != 1);
 };
 
-// Have equals button equate equation
-// const findTotal = function () {
-//   if (currentNum.length != 0) {
-//     arrSwap(equation, currentNum);
-//     pemdas(equation);
-//     display.innerHTML = Math.round(equation * 100) / 100;
-//   }
-// };
-
 equals.addEventListener("click", () => {
-  // findTotal();
   arrSwap(equation, currentNum);
-  console.log(equation);
+  console.log(equation[0]);
   negative = false;
   pemdas(equation);
+  // if (isFinite(equation)) {
   display.innerHTML = Math.round(equation * 100) / 100;
+  // } else {
+  //   display.innerHTML = "Error";
+  //   clearAll(equation);
+  // }
 });
