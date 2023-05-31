@@ -103,7 +103,15 @@ negativeBtn.addEventListener("click", () => {
 });
 
 // Create decimal button and percentage button functionality
-decimalBtn.addEventListener("click", () => currentNum.push("."));
+decimalBtn.addEventListener("click", function () {
+  if (currentNum.length === 0 || currentNum[0] == "-") {
+    currentNum.push("0.");
+    display.innerHTML = currentNum.join("");
+  } else {
+    currentNum.push(".");
+    display.innerHTML = currentNum.join("");
+  }
+});
 
 percent = false;
 
