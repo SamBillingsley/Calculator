@@ -50,6 +50,7 @@ clear.addEventListener("click", () => {
 });
 
 // add numbers to equation
+
 one.addEventListener("click", () => currentNum.push("1"));
 two.addEventListener("click", () => currentNum.push("2"));
 three.addEventListener("click", () => currentNum.push("3"));
@@ -198,7 +199,9 @@ addition.addEventListener("click", function () {
     pemdas(tempArr);
     display.innerHTML = Math.round(tempArr[0] * 100) / 100;
   }
-  equation.push("+");
+  if (equation.length !== 0) {
+    equation.push("+");
+  }
 });
 
 subtraction.addEventListener("click", function () {
@@ -210,7 +213,9 @@ subtraction.addEventListener("click", function () {
     pemdas(tempArr);
     display.innerHTML = Math.round(tempArr[0] * 100) / 100;
   }
-  equation.push("-");
+  if (equation.length !== 0) {
+    equation.push("-");
+  }
 });
 
 multiplication.addEventListener("click", function () {
@@ -222,7 +227,9 @@ multiplication.addEventListener("click", function () {
     pemdas(tempArr);
     display.innerHTML = Math.round(tempArr[0] * 100) / 100;
   }
-  equation.push("*");
+  if (equation.length !== 0) {
+    equation.push("*");
+  }
 });
 
 division.addEventListener("click", function () {
@@ -235,7 +242,9 @@ division.addEventListener("click", function () {
     pemdas(tempArr);
     display.innerHTML = Math.round(tempArr[0] * 100) / 100;
   }
-  equation.push("/");
+  if (equation.length !== 0) {
+    equation.push("/");
+  }
 });
 
 // add function that takes array and calculates it using PEMDAS
@@ -340,14 +349,19 @@ const pemdas = function (equation) {
 };
 
 equals.addEventListener("click", () => {
-  arrSwap(equation, currentNum);
-  console.log(equation[0]);
-  negative = false;
-  pemdas(equation);
-  // if (isFinite(equation)) {
-  display.innerHTML = Math.round(equation * 100) / 100;
-  // } else {
-  //   display.innerHTML = "Error";
-  //   clearAll(equation);
-  // }
+  if (equation.length >= 2) {
+    arrSwap(equation, currentNum);
+    if (Array.isArray(equation[0]) && Array.isArray(equation[1])) {
+      equation.shift();
+    }
+    pemdas(equation);
+    console.log(equation[0]);
+    negative = false;
+    if (isFinite(equation)) {
+      display.innerHTML = Math.round(equation * 100) / 100;
+    } else {
+      display.innerHTML = "Error";
+      clearAll(equation);
+    }
+  }
 });

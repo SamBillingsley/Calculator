@@ -19,6 +19,9 @@
   padding-right: 10px;
   border-radius: 10px;
   border: 2px solid black;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  overflow: hidden;
 }
 
 .screen {
@@ -40,16 +43,58 @@
   background-color: darkcyan;
 }
 
+.operatorButton:hover,
+:focus {
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+  transform: scale(1);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 139, 139, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(0, 139, 139, 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 139, 139, 0);
+  }
+}
+
+.operatorButton:focus {
+  background-color: darkslategray;
+}
+
+#equals:focus {
+  background-color: aqua;
+}
+
 .numberButtons {
   justify-content: center;
   width: 300px;
   padding-right: 0px;
 }
 
+.numButton:hover,
+.specialCharButton:hover {
+  box-shadow: 0px 1px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.numButton,
+.specialCharButton:focus {
+  animation: pulse;
+}
+
 .numButton {
   height: 100px;
   width: 80px;
-  background-color: grey;
+  background-color: gray;
 }
 
 .specialCharButton {
